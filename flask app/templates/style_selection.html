@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container img {
+            width: 100px;
+        }
+
+        .header-container h1 {
+            margin: 0 20px;
+            font-size: 24px;
+        }
+
+        .style-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .style-image {
+            flex: 0 0 calc(33.3333% - 10px); /* 3 resim yan yana, aralarında 10px boşluk */
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+
+        .style-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .style-image:hover::before {
+            content: attr(alt);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #selectedBackgroundPath,
+        #selectedStylePath {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .style-image img {
+            max-height: 200px; /* Maksimum yükseklik belirleyin */
+            width: auto;
+        }
+
+        .style-image figcaption {
+            text-align: center;
+        }
+
+        /* Medya sorguları */
+        @media screen and (max-width: 768px) {
+            .style-images {
+                flex-direction: column;
+                align-items: center;
+                background-color: black;
+            }
+            .style-image {
+                flex: 0 0 calc(50% - 10px);
+            }
+        }
+    </style>
+</head>
+<body>  
+
+<!-- Header container-->
+<div class="header-container">
+    <img src="https://www.basakesin.net/wp-content/uploads/2023/09/idu.webp" alt="IDU Logo">
+    <h1>Neural Style Transfer</h1>
+    <img src="https://www.basakesin.net/wp-content/uploads/2023/09/teknofest_logo.jpeg" alt="Teknofest Logo">
+</div>
+
+<h2>Stil Görüntünü Seç</h2>
+<div class="style-images">
+    <!-- Row 1 -->
+    <div class="style-image" onclick="selectStyle('/content/drive/MyDrive/flask app/static/Style Image/monet.jpg')" alt="monet">
+        <img src="https://i.imgur.com/kGJiOZo.jpg" alt="monet">
+    </div>
+
+    <div class="style-image" onclick="selectStyle('/content/drive/MyDrive/flask app/static/Style Image/vangogh.jpg')" alt="van gogh">
+        <img src="https://i.imgur.com/emzX3rC.jpg" alt="van gogh">
+    </div>
+
+    <div class="style-image" onclick="selectStyle('/content/drive/MyDrive/flask app/static/Style Image/davinci.jpg')" alt="da vinci">
+        <img src="https://i.imgur.com/QlELuzO.jpg" alt="da vinci">
+    </div>
+
+    <!-- Row 2 -->
+    <div class="style-image" onclick="selectStyle('/content/drive/MyDrive/flask app/static/Style Image/munch.jpg')" alt="munch">
+        <img src="https://i.imgur.com/ycAHG66.jpg" alt="munch">
+    </div>
+
+    <div class="style-image" onclick="selectStyle('/content/drive/MyDrive/flask app/static/Style Image/vermeer.jpg')" alt="vermeer">
+        <img src="https://i.imgur.com/X6AcAmc.jpg" alt="vermeer">
+    </div>
+
+    <div class="style-image" onclick="selectStyle('/content/drive/MyDrive/flask app/static/Style Image/picasso.jpg')" alt="picasso">
+        <img src="https://i.imgur.com/wd8zwqd.jpg" alt="picasso">
+    </div>
+</div>
+
+<!-- Hidden input to store the selected style path -->
+<form method="POST" action="/style_selection" id="styleForm">
+    <input type="hidden" name="style_path" id="stylePathInput">
+</form>
+
+<!-- Selected Style Image Path Display -->
+<div id="selectedStylePath"></div>
+
+<!-- JavaScript function to capture the selected style path -->
+<script>
+    function selectStyle(stylePath) {
+        // Update the selectedStylePath div with the selected style path
+        selectedStylePath.textContent = `Selected Style Image Path: ${stylePath}`;
+
+        // Set the selected style image path in the hidden input field
+        const stylePathInput = document.getElementById('stylePathInput');
+        stylePathInput.value = stylePath;
+
+        // Submit the form to the Flask route for style image
+        document.getElementById('styleForm').submit();
+    }
+</script>
+</body>
+</html>

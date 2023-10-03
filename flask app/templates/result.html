@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <!-- Add Bootstrap CSS CDN link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .result-image {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        .download-button {
+            margin-top: 20px;
+        }
+        /* Header container styles */
+        .header-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff; /* Change background color as needed */
+            color: #fff; /* Change text color as needed */
+        }
+        .header-container img {
+            max-width: 100px; /* Adjust image width as needed */
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header container -->
+    <div class="header-container">
+        <img src="https://www.basakesin.net/wp-content/uploads/2023/09/idu.webp" alt="IDU Logo">
+        <h1>Neural Style Transfer</h1>
+        <img src="https://www.basakesin.net/wp-content/uploads/2023/09/teknofest_logo.jpeg" alt="Teknofest Logo">
+    </div>
+
+    <div class="container mt-5">
+        <h1 class="text-center">Sonuç!</h1>
+        
+        <!-- Display the stylized image -->
+        <div class="text-center">
+            <img src="/static/stylized-image_new2.jpg" alt="Stylized Image" class="result-image">
+        </div>
+
+        <div class="text-center download-button">
+            <a href="/download_result" class="btn btn-primary">Sonucu Yükle</a>
+        </div>
+    </div>
+</body>
+</html>

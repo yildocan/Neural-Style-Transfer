@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container img {
+            width: 100px;
+        }
+
+        .header-container h1 {
+            margin: 0 20px;
+            font-size: 24px;
+        }
+
+        .background-images {
+            display: grid;
+            gap: 10px;
+            padding: 20px;
+            grid-template-columns: repeat(6, 1fr); /* 6 images in a row for computers */
+        }
+
+        .background-image img,
+        .style-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #selectedBackgroundPath,
+        #selectedStylePath {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+                /* Telefonda resimleri alt alta sırala */
+        @media screen and (max-width: 768px) {
+            .background-images {
+                grid-template-columns: repeat(1, 1fr); /* 1 image in a row for screens <= 768px */
+            }
+
+            .background-image {
+                flex: 0 0 calc(100% - 10px); /* Full width with margin */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- JavaScript function to capture the selected background path -->
+<script>
+    function selectBackground(imagePath) {
+        // Update the selectedBackgroundPath div with the selected background path
+        selectedBackgroundPath.textContent = `Selected Background Image Path: ${imagePath}`;
+
+        // Set the selected image path in the hidden input field
+        const backgroundPathInput = document.getElementById('backgroundPathInput');
+        backgroundPathInput.value = imagePath;
+
+        // Submit the form to the Flask route
+        document.getElementById('backgroundForm').submit();
+    }
+</script>
+
+<!-- Header container-->
+<div class="header-container">
+    <img src="https://www.basakesin.net/wp-content/uploads/2023/09/idu.webp" alt="IDU Logo">
+    <h1>Neural Style Transfer</h1>
+    <img src="https://www.basakesin.net/wp-content/uploads/2023/09/teknofest_logo.jpeg" alt="Teknofest Logo">
+</div>
+
+<!-- Display Background Images -->
+<h2>Arkaplan Resmini Seç</h2>
+<div class="background-images">
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image1.jpg')">
+            <img src="https://i.imgur.com/bOAogH3.jpg" alt="Background Image 1">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image2.jpg')">
+            <img src="https://i.imgur.com/xJ1sNIb.jpg" alt="Background Image 2">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image3.jpg')">
+            <img src="https://i.imgur.com/srTFrw4.jpg" alt="Background Image 3">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image4.jpg')">
+            <img src="https://i.imgur.com/rrCAGYA.jpg" alt="Background Image 4">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image5.jpg')">
+            <img src="https://i.imgur.com/S0VlpyW.jpg" alt="Background Image 5">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image6.jpg')">
+            <img src="https://i.imgur.com/wCJj5iy.jpg" alt="Background Image 6">
+        </div>
+
+        <!-- Row 2 -->
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image7.jpg')">
+            <img src="https://i.imgur.com/rwvDhBh.jpg" alt="Background Image 7">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image8.jpg')">
+            <img src="https://i.imgur.com/nxz9bD3.jpg" alt="Background Image 8">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image9.jpg')">
+            <img src="https://i.imgur.com/SLdhf7C.jpg" alt="Background Image 9">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image10.jpg')">
+            <img src="https://i.imgur.com/F7hqaPW.jpg" alt="Background Image 10">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image11.jpg')">
+            <img src="https://i.imgur.com/6mjm4jB.jpg" alt="Background Image 11">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image12.jpg')">
+            <img src="https://i.imgur.com/HVi6ot9.jpg" alt="Background Image 12">
+        </div>
+
+        <!-- Row 3 -->
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image13.jpg')">
+            <img src="https://i.imgur.com/RJ8qcuT.jpg" alt="Background Image 13">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image14.jpg')">
+            <img src="https://i.imgur.com/2EEdU80.jpg" alt="Background Image 14">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image15.jpg')">
+            <img src="https://i.imgur.com/1HgG8S0.jpg" alt="Background Image 15">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image16.jpg')">
+            <img src="https://i.imgur.com/ZCUiX0m.jpg" alt="Background Image 16">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image17.jpg')">
+            <img src="https://i.imgur.com/YRjWzT9.jpg" alt="Background Image 17">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image18.jpg')">
+            <img src="https://i.imgur.com/R9z8qin.jpg" alt="Background Image 18">
+        </div>
+
+        <!-- Row 4 -->
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image19.jpg')">
+            <img src="https://i.imgur.com/bl1MXGh.jpg" alt="Background Image 19">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image20.jpg')">
+            <img src="https://i.imgur.com/BALfcdv.jpg" alt="Background Image 20">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image21.jpg')">
+            <img src="https://i.imgur.com/S2Yom2L.jpg" alt="Background Image 21">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image22.jpg')">
+            <img src="https://i.imgur.com/J4PvY3k.jpg" alt="Background Image 22">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image23.jpg')">
+            <img src="https://i.imgur.com/Alw9i2Y.jpg" alt="Background Image 23">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image24.jpg')">
+            <img src="https://i.imgur.com/HrMDw4w.jpg" alt="Background Image 24">
+        </div>
+
+        <!-- Row 5 -->
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image25.jpg')">
+            <img src="https://i.imgur.com/aUTVGYd.jpg" alt="Background Image 25">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image26.jpg')">
+            <img src="https://i.imgur.com/xRBZl2S.jpg" alt="Background Image 26">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image27.jpg')">
+            <img src="https://i.imgur.com/ShzGACj.jpg" alt="Background Image 27">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image28.jpg')">
+            <img src="https://i.imgur.com/zsAWEHN.jpg" alt="Background Image 28">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image29.jpg')">
+            <img src="https://i.imgur.com/5tR8zG1.jpg" alt="Background Image 29">
+        </div>
+
+        <div class="background-image" onclick="selectBackground('/content/drive/MyDrive/flask app/static/Background/image30.jpg')">
+            <img src="https://i.imgur.com/daRM29v.jpg" alt="Background Image 30">
+        </div>
+     </div>
+  </div>
+</div>
+
+<!-- Hidden input to store the selected background path -->
+<form method="POST" action="/background" id="backgroundForm">
+    <input type="hidden" name="background_path" id="backgroundPathInput">
+</form>
+
+<!-- Selected Background Image Path Display -->
+<div id="selectedBackgroundPath"></div>
+
+</body>
+</html>

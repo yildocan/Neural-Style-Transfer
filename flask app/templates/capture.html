@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture Image</title>
+    <!-- Add Bootstrap CSS CDN link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      
+        body {
+            background-color: #f8f9fa;
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container img {
+            width: 100px;
+        }
+
+        .header-container h1 {
+            margin: 0 20px;
+            font-size: 24px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .text-center {
+            text-align: center;
+        }
+        #loadingScreen, #resultDisplay {
+            margin-top: 20px;
+        }
+        /* Add new styles for image placement */
+        #capturedImageContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 0; /* Adjust margin to 0 to keep the image at the top */
+        }
+        /* Add margin to push down content */
+        #contentBelowImage {
+            margin-top: 20px; /* Adjust margin as needed */
+        }
+        /* Set video aspect ratio to 16:9 */
+        #cameraFeed {
+            width: 100%;
+            height: 56.25vw; /* 100% / 16 * 9 = 56.25% */
+            max-height: 100%; /* Ensure that it doesn't overflow vertically */
+            object-fit: cover; /* Maintain aspect ratio while covering the container */
+        }
+    </style>
+</head>
+<body>
+
+     <!-- Header container-->
+    <div class="header-container">
+        <img src="https://i.imgur.com/sxCxj0J.png" alt="IDU Logo">
+        <h1>Neural Style Transfer</h1>
+        <img src="https://i.imgur.com/WDlcvhA.png" alt="Teknofest Logo">
+    </div>
+    <div class="container mt-5">
+        <h1 class="text-center">Resmini Çek</h1>
+
+        <div class="text-center">
+            <video id="cameraFeed" autoplay class="w-100"></video>
+        </div>
+        <div class="text-center mt-3">
+            <button id="captureButton" class="btn btn-primary">Çek</button>
+            <button id="retakeButton" class="btn btn-danger" style="display: none;">Yeniden Çek</button>
+        </div>
+        <canvas id="capturedCanvas" style="display: none;"></canvas>
+        
+        <!-- New container for captured image at the top -->
+        <div id="capturedImageContainer" class="text-center">
+            <img id="capturedImage" class="img-fluid" style="max-width: 100%; display: none;">
+        </div>
+
+        <!-- Content below the image -->
+        <div id="contentBelowImage" class="text-center">
+            <!-- Add your content here -->
+        </div>
+        
+        <!-- Modify the form action to point to the capture route -->
+        <form method="POST" action="/capture" class="text-center" id="captureForm">
+            <input type="hidden" name="image_data" id="imageDataInput">
+            <button type="submit" class="btn btn-success" id="processButton" style="display: none;">Stil Transferini Başlat!</button>
+        </form>
+
+        <!-- Loading Screen -->
+        <div id="loadingScreen" class="text-center" style="display: none;">
+            <h2>Loading...</h2>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Yükleniyor...</span>
+            </div>
+            <video id="loadingVideo" autoplay class="w-100"></video>
+        </div>
+
+        <!-- Result Display -->
+        <div id="resultDisplay" class="text-center" style="display: none;">
+            <!-- Place your result display content here -->
+        </div>
+    </div>
+
+    <script>
+        const cameraFeed = document.getElementById('cameraFeed');
+        const captureButton = document.getElementById('captureButton');
+        const retakeButton = document.getElementById('retakeButton');
+        const capturedCanvas = document.getElementById('capturedCanvas');
+        const capturedImage = document.getElementById('capturedImage');
+        const imageDataInput = document.getElementById('imageDataInput');
+        const processButton = document.getElementById('processButton');
+        const loadingScreen = document.getElementById('loadingScreen');
+        const resultDisplay = document.getElementById('resultDisplay');
+        const captureForm = document.getElementById('captureForm');
+        const loadingVideo = document.getElementById('loadingVideo');
+        let stream;
+
+        async function startCamera() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                cameraFeed.srcObject = stream;
+            } catch (error) {
+                console.error('Error accessing the camera:', error);
+            }
+        }
+
+        // Function to turn off the camera
+        function turnOffCamera() {
+            if (stream) {
+                const tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
+                cameraFeed.srcObject = null;
+            }
+        }
+
+        // Function to simulate processing (replace with actual processing logic)
+        function simulateProcessing() {
+            setTimeout(function () {
+                loadingScreen.style.display = 'none';
+                loadingVideo.pause();
+                resultDisplay.style.display = 'block';
+                // Replace with logic to display the result
+            }, 50000); // Adjust the time (in milliseconds) as needed
+        }
+
+        // Görüntü yakalama işlemi
+        captureButton.addEventListener('click', function () {
+            const videoWidth = cameraFeed.videoWidth;
+            const videoHeight = cameraFeed.videoHeight;
+            const aspectRatio = videoWidth / videoHeight;
+            const targetWidth = Math.min(videoWidth, videoHeight * 16 / 9);
+            const targetHeight = targetWidth / 16 * 9;
+
+            // Hedef boyutlarda bir canvas oluşturun
+            const canvas = document.createElement('canvas');
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+            const context = canvas.getContext('2d');
+
+            // Webcam görüntüsünü canvas'a çizin ve 16:9 boyutunda sınırlayın
+            const xOffset = (videoWidth - targetWidth) / 2;
+            const yOffset = (videoHeight - targetHeight) / 2;
+            context.drawImage(cameraFeed, xOffset, yOffset, targetWidth, targetHeight, 0, 0, targetWidth, targetHeight);
+
+            // Canvas'tan görüntüyü alın
+            const capturedImageData = canvas.toDataURL('image/jpeg');
+
+            // Görüntüyü görüntü elementine yükleyin
+            capturedImage.src = capturedImageData;
+            capturedImage.style.display = 'block';
+
+            // Kaydedilecek görüntüyü saklamak için kullanın
+            const imageData = canvas.toDataURL('image/jpeg');
+            imageDataInput.value = imageData;
+
+            captureButton.style.display = 'none';
+            retakeButton.style.display = 'block';
+            processButton.style.display = 'block';
+
+            // Kamerayı kapat
+            turnOffCamera();
+        });
+
+        processButton.addEventListener('click', function () {
+            capturedImage.style.display = 'none';
+            retakeButton.style.display = 'none';
+            processButton.style.display = 'none';
+            loadingScreen.style.display = 'block';
+
+            // Simulate processing (replace with actual processing logic)
+            simulateProcessing();
+        });
+
+        retakeButton.addEventListener('click', function () {
+            capturedImage.style.display = 'none';
+            retakeButton.style.display = 'none';
+            processButton.style.display = 'none';
+            captureButton.style.display = 'block';
+
+            // Start the camera again when retaking
+            startCamera();
+        });
+
+        startCamera();
+    </script>
+</body>
+</html>

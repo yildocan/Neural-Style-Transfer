@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to My App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS ekleyin -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #0c5f87;
+        height: 10vh; /* Ekran yüksekliğinin %10'u */
+    }
+
+    .header-container img {
+        width: 50px;
+    }
+
+    .header-container h1 {
+        margin: 0 20px;
+        font-size: 24px;
+    }
+
+    svg {
+        position: absolute;
+        top: 10vh; /* Header'in altında başlayacak */
+        left: 0;
+        width: 100%;
+        height: 80vh; /* Ekran yüksekliğinin %80'i */
+        box-sizing: border-box;
+        display: block;
+        background-color: #0e4166;
+        background-image: linear-gradient(to bottom, rgba(14, 65, 102, 0.86), #0e4166);
+    }
+
+    .col-md-6 {
+        background-color: #fffbae;
+        margin-top: 7.5vh; /* Header'in altına yerleşecek */
+        margin-bottom: 5vh;
+        margin-right: 25px;
+        margin-bottom: 25px;
+        border-radius: 10px;
+        width: 450px;
+        height: 475px;
+    }
+
+    .fixed-width-div {
+        width: 450px; /* İstediğiniz genişliği belirleyin */
+        height: 10vh; /* Ekran yüksekliğinin %10'u */
+        /* Diğer stil ayarları */
+    }
+
+    .col-md-5 {
+        background-color: #fffbae;
+        margin-top: 7.5vh; /* Header'in altına yerleşecek */
+        margin-bottom: 5vh;
+        margin-right: 25px;
+        margin-bottom: 25px;
+        border-radius: 10px;
+        width: 450px;
+        height: 475px;
+    }
+
+    .custom-button {
+        background-color: black;
+        color: white;
+        margin-bottom: 15px; /* Butonlar arasına 15px boşluk */
+        width: 100%; /* Butonları genişliğin tamamını kaplaması için */
+        transition: background-color 0.3s, color 0.3s; /* Hover efekti için geçiş efekti */
+    }
+
+    /* Butonların ortalanması */
+    .button-container {
+        text-align: center;
+    }
+
+    /* Hover efekti */
+    .custom-button:hover {
+        background-color: #333; /* Hover olduğunda yeni bir renk */
+        color: white; /* Hover olduğunda yeni bir renk */
+    }
+
+    /* Galeri için stil */
+    .gallery-container {
+        background-color: #0c5f87;
+        color: white;
+        text-align: center;
+        width: 100%;
+        position: absolute;
+    }
+
+    .gallery-item {
+        width: calc(100% / 3); /* Altı görseli eşit genişlikte sıralar */
+        margin: 5px;
+        width: 20%;
+        height: 10%;
+        display: inline-block;
+    }
+
+        /* Mobil Ekranlar için Stiller */
+    @media (max-width: 768px) {
+        body {
+            margin: 0;
+            padding: 0;
+            background: rgb(148,201,255);
+            background: radial-gradient(circle, rgba(148,201,255,1) 0%, rgba(245,255,172,1) 100%);
+        }
+        .col-md-6, .col-md-5 {
+            max-width: 75%; /* Maksimum genişlik sınırlamasını kaldırın */
+            max-height: 75%;
+            margin: 20px auto; /* Öğeyi yatay olarak ortala */
+            display: block; /* Görünürlüğü geri getir */
+
+
+        }
+
+        svg {
+          display: none;
+        }
+
+        .gallery-container {
+            display: none; /* Tam ekran genişliği (tek sütun) */
+        }
+    }
+</style>
+
+</head>
+<body>
+    <!-- SVG Ekle -->
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="80vh" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <linearGradient id="bg">
+          <stop offset="0%" style="stop-color:rgba(130, 158, 249, 0.06)"></stop>
+          <stop offset="50%" style="stop-color:rgba(76, 190, 255, 0.6)"></stop>
+          <stop offset="100%" style="stop-color:rgba(115, 209, 72, 0.2)"></stop>
+        </linearGradient>
+        <path id="wave" fill="url(#bg)" d="M-363.852,502.589c0,0,236.988-41.997,505.475,0
+        s371.981,38.998,575.971,0s293.985-39.278,505.474,5.859s493.475,48.368,716.963-4.995v560.106H-363.852V502.589z" />
+      </defs>
+      <g>
+        <use xlink:href='#wave' opacity=".3">
+          <animateTransform
+            attributeName="transform"
+            attributeType="XML"
+            type="translate"
+            dur="10s"
+            calcMode="spline"
+            values="270 230; -334 180; 270 230"
+            keyTimes="0; .5; 1"
+            keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
+            repeatCount="indefinite" />
+        </use>
+        <use xlink:href='#wave' opacity=".6">
+          <animateTransform
+            attributeName="transform"
+            attributeType="XML"
+            type="translate"
+            dur="8s"
+            calcMode="spline"
+            values="-270 230;243 220;-270 230"
+            keyTimes="0; .6; 1"
+            keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
+            repeatCount="indefinite" />
+        </use>
+        <use xlink:href='#wave' opacty=".9">
+          <animateTransform
+            attributeName="transform"
+            attributeType="XML"
+            type="translate"
+            dur="6s"
+            calcMode="spline"
+            values="0 230;-140 200;0 230"
+            keyTimes="0; .4; 1"
+            keySplines="0.42, 0, 0.58, 1.0;0.42, 0, 0.58, 1.0"
+            repeatCount="indefinite" />
+        </use>
+      </g>
+    </svg>
+
+    <!-- Header container-->
+    <div class="header-container">
+        <img src="https://i.imgur.com/sxCxj0J.png" alt="IDU Logo">
+        <h1>Neural Style Transfer</h1>
+        <img src="https://i.imgur.com/WDlcvhA.png" alt="Teknofest Logo">
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Bir Sanat Tablosundan Fırlamaya Hazır Mısın?</h1>
+                <p>Mobil cihaz üzerinden giriş yapmak istiyorsan QR kodu alman yeterli.</p>
+                <!-- Buton A, QR kodunu indirecek -->
+                <form method="GET" action="/generate_qr_code_homepage">
+                    <button type="submit" name="button_a" class="custom-button">QR Kodu Al</button>
+                </form>
+                <!-- Buton B, home.html sayfasına yönlendirecek -->
+                <form method="GET" action="/background">
+                    <button type="submit" name="button_b" class="custom-button">Hazırsan Başlayalım</button>
+                </form>
+            </div>
+            <div class="col-md-5 fixed-width-div">
+                {% if qr_code_image %}
+                    <div class="text-center">
+                        <h2>QR Kodun Hazır!</h2>
+                        <img src="data:image/png;base64,{{ qr_code_image }}" alt="QR Code" class="img-fluid">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+        <!-- Galeri için container -->
+    <div class="gallery-container">
+        <div class="gallery-item">
+            <img src="https://i.imgur.com/guWUeQa.jpg" alt="Image 1" class="img-fluid">
+        </div>
+        <div class="gallery-item">
+            <img src="https://i.imgur.com/HdDo3UH.jpg" alt="Image 2" class="img-fluid">
+        </div>
+        <div class="gallery-item">
+            <img src="https://i.imgur.com/vrG3Efn.jpg" alt="Image 3" class="img-fluid">
+        </div>
+    </div>
+</body>
+</html>
